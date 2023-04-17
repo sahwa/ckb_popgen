@@ -1,0 +1,5 @@
+WARNING: 'C' NOT READ FROM DATA INPUT FILE.
+This means that fineSTRUCTURE may expect to see the wrong variance
+in the data and you will probably experience poor clustering.
+You are advised to use the 'chromocombine' tool to estimate 'C'.
+See www.paintmychromosomes.com under 'ChromoCombine' for details.
