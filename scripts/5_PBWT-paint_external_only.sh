@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH -A ckb.prj
-#SBATCH -J paint_external_only
-#SBATCH -o paint_external_only_%j.out
-#SBATCH -e paint_external_only_%j.err
-#SBATCH -p short
+#SBATCH -J finestructure_external_only
+#SBATCH -o finestructure_external_only_%j.out
+#SBATCH -e finestructure_external_only_%j.err
+#SBATCH -p long
 #SBATCH -c 2
 #SBATCH --array 1
 
