@@ -5,7 +5,7 @@
 #SBATCH -e zpbwt_ea_%j.err
 #SBATCH -p short
 #SBATCH --array 1-22
-#SBATCH -c 3
+#SBATCH -c 1
 
 
 chr=$(sed -n ${SLURM_ARRAY_TASK_ID}'{p;q}' chr_list.txt)
@@ -79,8 +79,16 @@ cd ${ckb_external_data}
 # --out sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local
 
 
-if $chr == 6; do
-	bcftools index sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf
-	bcftools query -f '%CHROM\t%POS\n' -r 6:28510120-33480577 sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf > HLA_region_exclude.bed0
-	bcftools view -T ^HLA_region_exclude.bed0 sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf -Ob > tmp_chr6 && mv tmp_chr6 sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf 
+#if $chr == 6; do
+#	bcftools index sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf
+#	bcftools query -f '%CHROM\t%POS\n' -r 6:28510120-33480577 sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf > HLA_region_exclude.bed0
+#	bcftools view -T ^HLA_region_exclude.bed0 sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf -Ob > tmp_chr6 && mv tmp_chr6 sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf 
 #done
+
+##### finally, we want to rename the external samples to something sensible ###
+
+module purge all
+module load BCFtools/1.17-GCC-12.2.0
+
+#bcftools query -l sgdp_hgdp_1kGP_CKB.chr22.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf | grep -E -v 'G[1-9]{1,}' > external_oldnames_II.txt
+bcftools reheader -s external_oldnames_convert_II.txt sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf > tmp_${chr} && mv tmp_${chr} sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf

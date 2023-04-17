@@ -1,11 +1,13 @@
 #!/bin/bash
 #SBATCH -A ckb.prj
-#SBATCH -J pbwt_representative
-#SBATCH -o pbwt_representative_%j.out
-#SBATCH -e pbwt_representative_%j.err
+#SBATCH -J paint_external_only
+#SBATCH -o paint_external_only_%j.out
+#SBATCH -e paint_external_only_%j.err
 #SBATCH -p short
-#SBATCH -c 4
+#SBATCH -c 2
 #SBATCH --array 1-22
+
+chr=${SLURM_ARRAY_TASK_ID}
 
 ckb_external_data=/well/ckb/users/aey472/projects/ckb_popgen/data/CKB_external
 painting_output=/well/ckb/users/aey472/projects/ckb_popgen/data/painting_output
@@ -18,11 +20,24 @@ module purge all
 mamba activate pbwt
 
 pbwt \
-	-readVcfGT ${ckb_external_data}/sgdp_hgdp_1kGP_CKB.chr9.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf \
+	-readVcfGT ${ckb_external_data}/sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf \
 	-check \
 	-stats \
-	-selectSamples ${ckb_external_data}/non_CKB_oldnames.txt \
-	-paint ${painting_output}/sgdp_hgdp_1kGP_CKB.chr9.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf
+	-selectSamples ${ckb_external_data}/external_sample_final_names.txt \
+	-paint ${painting_output}/sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf
 
 
 ## Then we cluster using finestructure ##
+
+#fs fs \
+#        -x 1000000 \
+#        -y 2000000 \
+#        -z 10000 \
+##        ${chunkcounts} ${stem}.mcmc.xml
+
+
+#fs fs \
+#        -x 100000 \
+#        -m Tree \
+#        -t 100000 \
+##         ${chunkcounts} ${stem}.mcmc.xml ${stem}.tree.xml
