@@ -21,7 +21,17 @@ plink2 \
        --snps-only just-acgt \
        --maf 0.1 \
        --make-pgen \
-       --out sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.unrelated
+       --out sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local
+
+
+## want to estimate king relatedness for the external samples ##
+## will use this later for keeping samples for the PBWT-paint 
+
+plink2 \
+	--vcf sgdp_hgdp_1kGP.AllChr.CKB_snps.GT.no_duplicates.vcf.gz \
+	--make-king-table \
+	--king-cutoff 0.01 \
+	--out sgdp_hgdp_1kGP.AllChr.CKB_snps.GT.no_duplicates
 
 ## convert to bcf format for the PBWT-paint step
 
@@ -30,3 +40,10 @@ plink2 \
  --export bcf \
  --out sgdp_hgdp_1kGP_CKB.chr${chr}.CKB_snps.GT.EastAsians.unrelated.rmdup.conformed.phased.newnames.maf_filter.relfree.unrelated
 
+
+
+
+if $chr == 6; do
+	bcftools index sgdp_hgdp_1kGP_CKB.chr${chr}.CKB_snps.GT.EastAsians.unrelated.rmdup.conformed.phased.newnames.maf_filter.relfree.unrelated.bcf
+	bcftools view -R 6:28510120-33480577 sgdp_hgdp_1kGP_CKB.chr${chr}.CKB_snps.GT.EastAsians.unrelated.rmdup.conformed.phased.newnames.maf_filter.relfree.unrelated.bcf -Oz > tmp_chr6 && mv tmp_chr6 sgdp_hgdp_1kGP_CKB.chr${chr}.CKB_snps.GT.EastAsians.unrelated.rmdup.conformed.phased.newnames.maf_filter.relfree.unrelated.bcf
+done
