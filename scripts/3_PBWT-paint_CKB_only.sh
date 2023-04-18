@@ -4,7 +4,7 @@
 #SBATCH -o pbwt_representative_%j.out
 #SBATCH -e pbwt_representative_%j.err
 #SBATCH -p short
-#SBATCH -c 4
+#SBATCH -c 16
 #SBATCH --array 1-22%4
 
 chr=${SLURM_ARRAY_TASK_ID}
