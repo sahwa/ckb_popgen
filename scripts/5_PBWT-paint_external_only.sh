@@ -41,4 +41,12 @@ chunkcounts=/well/ckb/users/aey472/projects/ckb_popgen/data/painting_output/sgdp
 stem=sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.external_only
 fs_output=/well/ckb/users/aey472/projects/ckb_popgen/data/finestructure_output
 
-bash ${programs}/finestructuregreedy.sh ${chunkcounts} ${stem}.xml
+#bash ${programs}/finestructuregreedy.sh ${chunkcounts} ${stem}.xml
+
+fs=/well/ckb/users/aey472/program_files/finestructure4/fs 
+
+${fs} fs \
+	-m T \
+	-T 1 \
+	-t 1000000 \
+	${painting_output}/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.external_only.chunkcounts.out sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.external_only.estep20.xml sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.external_only.xml
