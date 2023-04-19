@@ -4,8 +4,8 @@
 #SBATCH -o pbwt_paint_all_%j.out
 #SBATCH -e pbwt_paint_all_%j.err
 #SBATCH -p short
-#SBATCH -c 16
-#SBATCH --array 1-22%4
+#SBATCH -c 18
+#SBATCH --array 10-22%4
 
 # ###########################################################################################
 #	                               Paint just CKB samples against each other                  #
@@ -22,10 +22,12 @@ external_data=/well/ckb/users/aey472/projects/ckb_popgen/data/external_data
 ckb_external_data=/well/ckb/users/aey472/projects/ckb_popgen/data/CKB_external
 painting_output=/well/ckb/users/aey472/projects/ckb_popgen/data/painting_output
 
+rel_free=/well/ckb/shared/filesystem/metadata/sample_inclusion_exclusion_lists/relative_free/rel_free.ls
+
 pbwt \
 	-readVcfGT ${ckb_external_data}/sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf \
 	-check \
-	-selectSamples 
+	-selectSamples ${ckb_external_data}/relfree_local.txt \
 	-stats \
 	-paint ${painting_output}/sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.CKB_only_relfree
 
