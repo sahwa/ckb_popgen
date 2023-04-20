@@ -1,2 +1,3 @@
 - [ ] Estimate genetic diversity within RCs - why can we split some RCs into many clusters and not others
 - [ ] Why is Liuzhou and Haikou distinctive? Is it because of drift of admixture?
+- [ ] Do hap-IBD for all CKB and external clusters to compare the relative amount of IBD sharing
