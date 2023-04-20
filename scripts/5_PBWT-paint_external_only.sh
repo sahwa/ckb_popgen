@@ -45,23 +45,10 @@ fs_output=/well/ckb/users/aey472/projects/ckb_popgen/data/finestructure_output
 
 #mamba activate finestructure
 
-<<<<<<< HEAD
-chunkcounts=${painting_output}/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.external_only.no_admixed.chunkcounts.out
-#stem=sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.external_only.no_admixed_greedy
-=======
-chunkcounts=${painting_output}/sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.external_only.no_admixed.chunkcounts.out
-stem=sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.external_only.no_admixed
->>>>>>> 9ec4abff6c5c6390c9bbcf1702538d383a77dd06
-fs_output=/well/ckb/users/aey472/projects/ckb_popgen/data/finestructure_output
-
-#bash ${programs}/finestructuregreedy.sh ${chunkcounts} ${fs_output}/${stem}.xml
-
-<<<<<<< HEAD
-#### also try normal finestructure ####
 
 fs=/well/ckb/users/aey472/program_files/finestructure4/fs
 stem=sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.external_only.no_admixed_full
-=======
+
 #${fs} fs \
 #	-m T \
 #	-T 1 \
@@ -78,7 +65,6 @@ ${fs} fs \
         -y 2000000 \
         -z 10000 \
         ${chunkcounts} ${fs_output}/${stem}.mcmc.xml
->>>>>>> 9ec4abff6c5c6390c9bbcf1702538d383a77dd06
 
 ${fs} fs \
         -x 1000000 \
