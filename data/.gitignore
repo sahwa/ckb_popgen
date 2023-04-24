@@ -1,5 +1,8 @@
 CKB_external/
+PCA_output/
 external_data/
+finestructure_figures/
+finestructure_output/
+hap-ibd_output/
 other_files/
 painting_output/
-finestructure_output/
