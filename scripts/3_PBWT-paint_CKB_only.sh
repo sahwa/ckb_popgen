@@ -5,7 +5,7 @@
 #SBATCH -e pbwt_paint_all_%j.err
 #SBATCH -p short
 #SBATCH -c 18
-#SBATCH --array 10-22%4
+#SBATCH --array 1-22
 
 # ###########################################################################################
 #	                               Paint just CKB samples against each other                  #

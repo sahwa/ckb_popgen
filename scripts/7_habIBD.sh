@@ -5,7 +5,7 @@
 #SBATCH -e hap-ibd_%j.err
 #SBATCH -p short
 #SBATCH --array 1-22
-#SBATCH -c 3
+#SBATCH -c 2
 
 chr=${SLURM_ARRAY_TASK_ID}
 source ~/.bashrc
@@ -19,10 +19,11 @@ gen_maps=/well/ckb/users/aey472/projects/ckb_popgen/data/other_files/gen_maps
 programs=/well/ckb/users/aey472/projects/ckb_popgen/programs
 output=/well/ckb/users/aey472/projects/ckb_popgen/data/hap-ibd_output
 
-module purge all && module load HTSlib/1.10.2-GCC-8.3.0
+module purge all && module load BCFtools/1.17-GCC-12.2.0
 
-bgzip -d -c ${ckb_external_data}/sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf | gzip -c > ${ckb_external_data}/sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_sn
-ps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.vcf.gz
+bcftools view -Oz ${ckb_external_data}/sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf  > ${ckb_external_data}/sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.vcf.gz
+
+module purge all && module load java/10.0.1
 
 java -jar ${programs}/${hap_IBD} \
 	gt=${ckb_external_data}/sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.vcf.gz \
