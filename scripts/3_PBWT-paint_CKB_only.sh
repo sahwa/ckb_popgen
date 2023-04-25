@@ -3,8 +3,8 @@
 #SBATCH -J ckb_merge_lengths
 #SBATCH -o ckb_merge_lengths_%j.out
 #SBATCH -e ckb_merge_lengths_%j.err
-#SBATCH -p short
-#SBATCH -c 16
+#SBATCH -p long
+#SBATCH -c 4
 
 # ###########################################################################################
 #	                               Paint just CKB samples against each other                  #
@@ -48,17 +48,17 @@ cd ${painting_output}
 #	-c "1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22" \
 #	-o "sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.CKB_only_relfree.chunkcounts.out.gz"
 
-Rscript ${programs}/merge_chunklengths.R \
-  -n "/well/ckb/users/aey472/projects/ckb_popgen/data/CKB_external/relfree_local.RC_ID.txt" \
-  -p "sgdp_hgdp_1kGP_CKB.chr" \
-  -a ".AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.CKB_only_relfree.chunklengths.out.gz" \
-  -c "1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22" \
-  -o "sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.CKB_only_relfree.chunklengths.out.gz"
+#Rscript ${programs}/merge_chunklengths.R \
+#  -n "/well/ckb/users/aey472/projects/ckb_popgen/data/CKB_external/relfree_local.RC_ID.txt" \
+#  -p "sgdp_hgdp_1kGP_CKB.chr" \
+#  -a ".AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.CKB_only_relfree.chunklengths.out.gz" \
+#  -c "1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22" \
+#  -o "sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.CKB_only_relfree.chunklengths.out.gz"
 
 ######### run greedy fs ############
 
-#chunkcounts=${painting_output}/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.CKB_only_relfree.chunkcounts.out
-#programs=/well/ckb/users/aey472/projects/ckb_popgen/programs
-#fs_out=/well/ckb/users/aey472/projects/ckb_popgen/data/finestructure_output
+chunkcounts=${painting_output}/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.CKB_only_relfree.chunkcounts.out
+programs=/well/ckb/users/aey472/projects/ckb_popgen/programs
+fs_out=/well/ckb/users/aey472/projects/ckb_popgen/data/finestructure_output
 
-#bash ${programs}/finestructuregreedy.sh ${chunkcounts} ${fs_out}/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.CKB_only_relfree.greedy.xml
+bash ${programs}/finestructuregreedy.sh ${chunkcounts} ${fs_out}/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.CKB_only_relfree.greedy.xml
