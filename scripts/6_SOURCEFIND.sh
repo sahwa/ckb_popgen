@@ -32,9 +32,18 @@ idfile=../data/SOURCEFIND/idfile.txt
 
 ######### no HAN ancestry ###########
 
+#Rscript ${sf_dir}/sourcefindv2.R \
+#  -c ${painting_output}/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.all_CKB_external.chunklengths.out.casted.popaverage.gz \
+#  -p ${sf_out}/paramfile_noHanSurrogate.txt \
+#  -i ${sf_out}/idfile.txt \
+#  -o ${sf_out}/${region}_noHanSurrogate.txt \
+#  -t ${region}
+
+######### no HAN ancestry but including CKB regions as surrogates ########
+
 Rscript ${sf_dir}/sourcefindv2.R \
   -c ${painting_output}/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.all_CKB_external.chunklengths.out.casted.popaverage.gz \
-  -p ${sf_out}/paramfile_noHanSurrogate.txt \
+  -p ${sf_out}/paramfile_noHanSurrogate_CKBSurrogates.txt \
   -i ${sf_out}/idfile.txt \
-  -o ${sf_out}/${region}_noHanSurrogate.txt \
+  -o ${sf_out}/${region}_noHanSurrogate_CKBSurrogates.txt \
   -t ${region}
