@@ -4,7 +4,7 @@
 #SBATCH -o ckbexternal_fsgreedy_%j.out
 #SBATCH -e ckbexternal_fsgreedy_%j.err
 #SBATCH -p long
-#SBATCH -c 2
+#SBATCH -c 4
 
 #############################################################################################
 # Paint all unrelated CKB samples and most external reference samples for use in SOURCEFIND #
