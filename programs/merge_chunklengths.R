@@ -1,5 +1,6 @@
 library(data.table)
 library(optparse)
+library(stringr)
 
 option_list = list(
   make_option(c("-p", "--pre_chr"),
@@ -26,7 +27,12 @@ option_list = list(
     type="character",
     default=NULL,
     help="list of sample names for output",
-    metavar="character")
+    metavar="character"),
+	make_option(c("-x", "--pca"),
+		type="character",
+		default="false",
+		help="perform PCA on the matrix",
+		metavar="character")
   )
 
 opt_parser = OptionParser(option_list=option_list)
@@ -61,5 +67,14 @@ for (i in chrs) {
 total[, RECIPIENT := names]
 setcolorder(total, c("RECIPIENT", colnames(total)[-ncol(total)]))
 colnames(total)[-1] = names
+
+if (opt$pca == "TRUE") {
+	pca = data.table(inds = total$RECIPIENT, irlba::prcomp_irlba(total[,-1], n=20)$x)
+	
+	if (str_detect(opt$out, ".gz")) outname = paste0(paste0(rev(rev(str_split(opt$out, "\\.")[[1]])[-c(1:3)]), collapse="."), ".pca.gz", collapse=".")
+	if (!str_detect(opt$out, ".gz")) outname = paste0(paste0(rev(rev(str_split(opt$out, "\\.")[[1]])[-c(1:2)]), collapse="."), ".pca.gz", collapse=".")
+	
+	fwrite(pca, outname) 
+}
 
 fwrite(total, opt$output, col.names=T, sep=" ", verbose=T, quote=F)
