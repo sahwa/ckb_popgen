@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH -A ckb.prj
 #SBATCH -J paint_RCstrat
-#SBATCH -o paint_RCstrat_%j.out
-#SBATCH -e paint_RCstrat_%j.err
+#SBATCH -o paint_RCstrat_$SLURM_ARRAY_TASK_ID.out
+#SBATCH -e paint_RCstrat_$%SLURM_ARRAY_TASK_ID.err
 #SBATCH -p short
 #SBATCH -c 3
 #SBATCH --array 1-10
