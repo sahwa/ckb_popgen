@@ -1,4 +1,6 @@
 #!/usr/bin/env Rscript
+library(data.table)
+
 args = commandArgs(trailingOnly=TRUE)
 
 #### adapted from Dan Lawson's FS library scripts
