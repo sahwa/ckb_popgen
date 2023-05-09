@@ -21,12 +21,7 @@ nonlocal=/well/ckb/shared/filesystem/metadata/sample_inclusion_exclusion_lists/n
 rel_free=/well/ckb/shared/filesystem/metadata/sample_inclusion_exclusion_lists/relative_free/rel_free.ls
 
 ##### directories #####
-external_data=/well/ckb/users/aey472/projects/ckb_popgen/data/external_data
-ckb_external_data=/well/ckb/users/aey472/projects/ckb_popgen/data/CKB_external
-gen_maps=/well/ckb/users/aey472/projects/ckb_popgen/data/other_files/gen_maps
-programs=/well/ckb/users/aey472/projects/ckb_popgen/programs
-
-cd ${ckb_external_data}
+source directories.config
 
 #### rename the samples ####
 #module purge all
@@ -91,4 +86,17 @@ module purge all
 module load BCFtools/1.17-GCC-12.2.0
 
 #bcftools query -l sgdp_hgdp_1kGP_CKB.chr22.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf | grep -E -v 'G[1-9]{1,}' > external_oldnames_II.txt
-bcftools reheader -s external_oldnames_convert_II.txt sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf > tmp_${chr} && mv tmp_${chr} sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf
+#bcftools reheader -s external_oldnames_convert_II.txt sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf > tmp_${chr} && mv tmp_${chr} sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf
+
+
+### then rename the CKB samples to have RCx IDs ###
+
+bcftools reheader -s ${metadata}/GSID_RC_name_conversion.txt ${ckb_external_data}/sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf > tmp_${chr} && mv tmp_${chr} ${ckb_external_data}/sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf
+
+
+
+
+
+
+
+

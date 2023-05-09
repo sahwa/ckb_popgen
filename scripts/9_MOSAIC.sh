@@ -4,7 +4,7 @@
 #SBATCH -o MOSAIC_%A_%a.out
 #SBATCH -e MOSAIC_%A_%a.err
 #SBATCH -p short
-#SBATCH --array 1
+#SBATCH --array 1-33
 #SBATCH -c 8
 
 source directories.config
@@ -37,12 +37,14 @@ chr=${SLURM_ARRAY_TASK_ID}
 #	sgdp_hgdp_1kGP_CKB.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.MOSAIC_samples.vcf.gz.samples.pops \
 #	${mosaic_data}/
 
-cd ${mosiac_data}
+cd ${mosaic_data}
+
+cluster=$(sed -n ${SLURM_ARRAY_TASK_ID}'{p;q}' pcmidpoints_500_clusters.txt)
 
 Rscript ${programs}/MOSAIC/mosaic.R \
 	--chromosomes 1:22 \
 	--ancestries 2 \
-	--panels "Abkhasian Adygei Aleut Altaian Ami Armenian Atayal Balochi Bedouin Bengali BergamoItalian Bougainville Brahmin Brahui British Bulgarian", \
-	--maxcores 32 \
-	"404Qingdao;44Harbin" \
+	--panels "Balochi Bengali Bougainville British Cambodian Chukchi Finnish French Hawaiian Japanese KinhVietnamese Korean Mongolian Kyrgyz Russian Thai Yakut" \
+	--maxcores 8 \
+	${cluster} \
 	${mosaic_data}/
