@@ -12,6 +12,11 @@
 source directories.config
 source ~/.bashrc
 
+
+Rscript ${programs}/get_tree_xml.R \
+	${finestructure_output}/fs_greedy_subset/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.2000_random.xml \
+	${sourcefind_data}/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.2000_random.clusters.txt
+
 Rscript combine_chunklengths... \
 	
 

@@ -5,7 +5,7 @@
 #SBATCH -e MOSAIC_%A_%a.err
 #SBATCH -p short
 #SBATCH --array 1-33
-#SBATCH -c 8
+#SBATCH -c 32
 
 source directories.config
 source ~/.bashrc
@@ -17,7 +17,7 @@ chr=${SLURM_ARRAY_TASK_ID}
 #cat ${keep_CKB_samples} ${keep_external_samples} > ${mosaic_data}/mosiac_ckb_external_keep_samples.txt
 
 #module purge all 
-#module load BCFtools/1.17-GCC-12.2.0
+#module load :wqBCFtools/1.17-GCC-12.2.0
 
 #bcftools view \
 #	-S ${mosaic_data}/mosiac_ckb_external_keep_samples.txt \
@@ -37,6 +37,13 @@ chr=${SLURM_ARRAY_TASK_ID}
 #	sgdp_hgdp_1kGP_CKB.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.MOSAIC_samples.vcf.gz.samples.pops \
 #	${mosaic_data}/
 
+if grep -q MOSAIC_RESULTS MOSAIC_15937338_${SLURM_ARRAY_TASK_ID}.out; then
+    echo already run
+		exit 0
+else
+    echo not run
+fi
+
 cd ${mosaic_data}
 
 cluster=$(sed -n ${SLURM_ARRAY_TASK_ID}'{p;q}' pcmidpoints_500_clusters.txt)
@@ -45,6 +52,6 @@ Rscript ${programs}/MOSAIC/mosaic.R \
 	--chromosomes 1:22 \
 	--ancestries 2 \
 	--panels "Balochi Bengali Bougainville British Cambodian Chukchi Finnish French Hawaiian Japanese KinhVietnamese Korean Mongolian Kyrgyz Russian Thai Yakut" \
-	--maxcores 8 \
+	--maxcores 0 \
 	${cluster} \
 	${mosaic_data}/

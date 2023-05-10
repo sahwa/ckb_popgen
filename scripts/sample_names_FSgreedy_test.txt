@@ -1,0 +1,8 @@
+/well/ckb/users/aey472/projects/ckb_popgen/data/finestructure_output/CKB_samples_greedy_1000.PC_midpoints.txt
+/well/ckb/users/aey472/projects/ckb_popgen/data/finestructure_output/CKB_samples_greedy_1000.random.txt
+/well/ckb/users/aey472/projects/ckb_popgen/data/finestructure_output/CKB_samples_greedy_2000.PC_midpoints.txt
+/well/ckb/users/aey472/projects/ckb_popgen/data/finestructure_output/CKB_samples_greedy_2000.random.txt
+/well/ckb/users/aey472/projects/ckb_popgen/data/finestructure_output/CKB_samples_greedy_500.PC_midpoints.txt
+/well/ckb/users/aey472/projects/ckb_popgen/data/finestructure_output/CKB_samples_greedy_500.random.txt
+/well/ckb/users/aey472/projects/ckb_popgen/data/finestructure_output/CKB_samples_greedy_5000.PC_midpoints.txt
+/well/ckb/users/aey472/projects/ckb_popgen/data/finestructure_output/CKB_samples_greedy_5000.random.txt

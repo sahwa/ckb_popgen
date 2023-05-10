@@ -37,7 +37,7 @@ source ~/.bashrc
 
 cd ${painting_output}
 
-sample_names=/well/ckb/users/aey472/projects/ckb_popgen/scripts/relfree_local_RCid.txt
+sample_names=/well/ckb/users/aey472/projects/ckb_popgen/data/CKB_external/relfree_local.RC_ID.txt
 
 Rscript ${programs}/merge_chunklengths.R \
 	-n ${sample_names} \
