@@ -3,7 +3,7 @@
 #SBATCH -J MOSAIC
 #SBATCH -o MOSAIC_%A_%a.out
 #SBATCH -e MOSAIC_%A_%a.err
-#SBATCH -p short
+#SBATCH -p long
 #SBATCH --array 1-33
 #SBATCH -c 32
 

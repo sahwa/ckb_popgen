@@ -41,4 +41,6 @@ clusternames_df = rbindlist(lapply(seq_along(mapstatelist), function(x) {
 	})
 )
 
+clusternames_df[, clustername := paste0("x_", clustername)]
+
 fwrite(clusternames_df, args[2], col.names=F, sep=" ")
