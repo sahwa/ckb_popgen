@@ -4,8 +4,8 @@
 #SBATCH -o pcm_greedyFSsubset_%A_%a.out
 #SBATCH -e pcm_greedyFSsubset_%A_%a.err
 #SBATCH -p long
-#SBATCH --array 1-8
-#SBATCH -c 8
+#SBATCH --array 7
+#SBATCH -c 16
 
 source directories.config 
 

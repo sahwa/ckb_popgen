@@ -5,7 +5,7 @@
 #SBATCH -e MOSAIC_%A_%a.err
 #SBATCH -p short
 #SBATCH --array 1-78
-#SBATCH -c 24
+#SBATCH -c 32
 
 source directories.config
 source ~/.bashrc
@@ -63,7 +63,7 @@ cluster=$(sed -n ${SLURM_ARRAY_TASK_ID}'{p;q}' mosaic_CKB_2000_random.pops.txt)
 Rscript ${programs}/MOSAIC/mosaic.R \
 	--chromosomes 10:22 \
 	--ancestries 2 \
-	--panels "Balochi Bengali Bougainville British Cambodian Chukchi Finnish French Hawaiian Japanese KinhVietnamese Korean Mongolian Kyrgyz Russian Tujia Thai" \
-	--maxcores 0 \
+	--panels "Balochi British Cambodian Chukchi Hawaiian Japanese KinhVietnamese Korean Mongolian Tujia Thai" \
+	--maxcores 4 \
 	${cluster} \
 	${mosaic_data}/
