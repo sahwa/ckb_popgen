@@ -64,6 +64,12 @@ Rscript ${programs}/MOSAIC/mosaic.R \
 	--chromosomes 10:22 \
 	--ancestries 2 \
 	--panels "Balochi British Cambodian Chukchi Hawaiian Japanese KinhVietnamese Korean Mongolian Tujia Thai" \
-	--maxcores 4 \
+	--maxcores 8 \
 	${cluster} \
 	${mosaic_data}/
+
+#### parse logs for data ###
+touch job_${SLURM_ARRAY_TASK_ID}_mosaic_log.txt
+grep -A2 'Rst between mixing groups:' MOSAIC_17178202_${SLURM_ARRAY_TASK_ID}.out >> job_${SLURM_ARRAY_TASK_ID}_mosaic_log.txt
+grep -A2 'Fst between mixing groups:' MOSAIC_17178202_${SLURM_ARRAY_TASK_ID}.out >> job_${SLURM_ARRAY_TASK_ID}_mosaic_log.txt
+grep 'r-squared' MOSAIC_17178202_${SLURM_ARRAY_TASK_ID}.out >> job_${SLURM_ARRAY_TASK_ID}_mosaic_log.txt
