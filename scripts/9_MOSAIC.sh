@@ -5,7 +5,7 @@
 #SBATCH -e MOSAIC_%A_%a.err
 #SBATCH -p short
 #SBATCH --array 1-78
-#SBATCH -c 32
+#SBATCH -c 1
 
 source directories.config
 source ~/.bashrc
@@ -54,19 +54,19 @@ keep_external_samples=${mosaic_data}/keep_external_samples.txt
 #    echo not run
 #fi
 
-cd ${mosaic_data}
+#cd ${mosaic_data}
 
 #cut -d' ' -f2 ${finestructure_output}/fs_greedy_subset/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.2000_random.popdf.txt | uniq | sort > mosaic_CKB_2000_random.pops.txt
 
-cluster=$(sed -n ${SLURM_ARRAY_TASK_ID}'{p;q}' mosaic_CKB_2000_random.pops.txt)
+#cluster=$(sed -n ${SLURM_ARRAY_TASK_ID}'{p;q}' mosaic_CKB_2000_random.pops.txt)
 
-Rscript ${programs}/MOSAIC/mosaic.R \
-	--chromosomes 10:22 \
-	--ancestries 2 \
-	--panels "Balochi British Cambodian Chukchi Hawaiian Japanese KinhVietnamese Korean Mongolian Tujia Thai" \
-	--maxcores 8 \
-	${cluster} \
-	${mosaic_data}/
+#Rscript ${programs}/MOSAIC/mosaic.R \
+#	--chromosomes 10:22 \
+#	--ancestries 2 \
+#	--panels "Balochi British Cambodian Chukchi Hawaiian Japanese KinhVietnamese Korean Mongolian Tujia Thai" \
+#	--maxcores 4 \
+#	${cluster} \
+#	${mosaic_data}/
 
 #### parse logs for data ###
 touch job_${SLURM_ARRAY_TASK_ID}_mosaic_log.txt
