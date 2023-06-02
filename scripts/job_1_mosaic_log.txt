@@ -1,7 +1,0 @@
-Rst between mixing groups:
- anc1xanc2 
-0.02083306 
-Fst between mixing groups:
- anc1xanc2 
-0.05270432 
-Expected r-squared (genomewide): 0.6206955 

@@ -23,6 +23,17 @@ params=../data/SOURCEFIND/paramfile.txt
 idfile=../data/SOURCEFIND/idfile.txt
 
 
+
+
+
+
+
+
+
+
+
+
+
 ##Rscript ${sf_dir}/sourcefindv2.R \
 #	-c ${painting_output}/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.all_CKB_external.chunklengths.out.casted.popaverage.gz \
 #	-p ${sf_out}/paramfile.txt \

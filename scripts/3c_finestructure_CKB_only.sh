@@ -3,9 +3,9 @@
 #SBATCH -J pcm_greedyFSsubset
 #SBATCH -o pcm_greedyFSsubset_%A_%a.out
 #SBATCH -e pcm_greedyFSsubset_%A_%a.err
-#SBATCH -p long
-#SBATCH --array 7
-#SBATCH -c 16
+#SBATCH -p short
+#SBATCH --array 1-7
+#SBATCH -c 8
 
 source directories.config 
 
@@ -41,9 +41,9 @@ source ~/.bashrc
 #Rscript ${programs}/merge_chunklengths.R \
 # -n ${samples} \
 # -p ${painting_output}/fs_greedy_subset/sgdp_hgdp_1kGP_CKB.chr \
-# -a .AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.${stem}.chunkcounts.out.gz \
+# -a .AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.${stem}.chunklengths.out.gz \
 # -c "1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22" \
-# -o ${painting_output}/fs_greedy_subset/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.${stem}.chunkcounts.out
+# -o ${painting_output}/fs_greedy_subset/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.${stem}.chunklengths.out.gz
 
 
 chunkcounts=${painting_output}/fs_greedy_subset/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.${stem}.chunkcounts.out
@@ -52,8 +52,7 @@ stem_fs=fs_greedy_subset/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplica
 programs=/well/ckb/users/aey472/projects/ckb_popgen/programs
 fs_out=/well/ckb/users/aey472/projects/ckb_popgen/data/finestructure_output
 
-bash ${programs}/finestructuregreedy.sh -R ${chunkcounts} ${fs_out}/${stem_fs}.xml
-
+bash ${programs}/finestructuregreedy.sh -a "-T 1" -R ${chunkcounts} ${fs_out}/${stem_fs}.xml
 
 
 
