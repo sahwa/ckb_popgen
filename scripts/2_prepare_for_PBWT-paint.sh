@@ -91,7 +91,8 @@ module load BCFtools/1.17-GCC-12.2.0
 
 ### then rename the CKB samples to have RCx IDs ###
 
-bcftools reheader -s ${metadata}/GSID_RC_name_conversion.txt ${ckb_external_data}/sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf > tmp_${chr} && mv tmp_${chr} ${ckb_external_data}/sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf
+bcftools reheader \
+	-s ${metadata}/GSID_RC_name_conversion.txt ${ckb_external_data}/sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf > tmp_${chr} && mv tmp_${chr} ${ckb_external_data}/sgdp_hgdp_1kGP_CKB.chr${chr}.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.bcf
 
 
 
