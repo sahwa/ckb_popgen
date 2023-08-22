@@ -1,0 +1,10 @@
+../data/HumanOriginsExternal/EastAsianAncientWang
+../data/HumanOriginsExternal/Lao_individuals_2023
+../data/HumanOriginsExternal/LipsonModern2018
+../data/HumanOriginsExternal/Nakatskua_FilteredData
+../data/HumanOriginsExternal/QinStoneking
+../data/HumanOriginsExternal/SkoglundPacific
+../data/HumanOriginsExternal/WangModern
+../data/HumanOriginsExternal/Kutanan_Liu_2021_Thai_Lao
+../data/HumanOriginsExternal/Viet_Liu_2020
+../data/HumanOriginsExternal/allen

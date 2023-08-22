@@ -31,9 +31,7 @@ if (is.null(opt$output)) stop("need output")
 popfile = fread(opt$popfile, header=F)
 chunklengths = fread(opt$chunklengths, verbose=T, header=T)
 
-
 pops = unique(popfile$V2)
-
 
 ckb_pops = c("Harbin", "Gansu", "Hunan", "Henan", "Liuzhou", "Zhejiang",
 "Haikou", "Sichuan", "Qingdao", "Suzhou")
@@ -51,14 +49,16 @@ setnames(chunklengths, newcolnames)
 chunklengths[, RECIPIENT := newcolnames[-1]]
 
 all_pops = c(pops, ckb_pops, ext_inds_pops)
+all_pops = all_pops[all_pops %in% chunklengths$RECIPIENT]
+
+print(paste0("Processing: ", all_pops))
 
 
 res_dt = rbindlist(lapply(seq_along(all_pops), function(x) {
-		print(x)
-        chunklengths[RECIPIENT == all_pops[x]][,
-                        melt(.SD, id.vars="RECIPIENT")][,
-                                list(value = mean(value)), by=c("RECIPIENT", "variable")][,
-                                        dcast(.SD, RECIPIENT~variable)]
+	chunklengths[RECIPIENT == all_pops[x]][,
+		melt(.SD, id.vars="RECIPIENT")][,
+			list(value = mean(value)), by=c("RECIPIENT", "variable")][,
+				dcast(.SD, RECIPIENT~variable)]
 		}
 	)
 )

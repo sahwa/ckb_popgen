@@ -1,0 +1,18 @@
+Jun-28 10:51:53.005 [main] DEBUG nextflow.cli.Launcher - $> nextflow run ../../../program_files/eager/
+Jun-28 10:51:53.066 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 23.04.1
+Jun-28 10:51:53.092 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/users/ckb/aey472/.nextflow/plugins; core-plugins: nf-amazon@1.16.2,nf-azure@1.0.1,nf-codecommit@0.1.4,nf-console@1.0.5,nf-ga4gh@1.0.5,nf-google@1.7.3,nf-tower@1.5.12,nf-wave@0.8.2
+Jun-28 10:51:53.115 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Jun-28 10:51:53.116 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Jun-28 10:51:53.119 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+Jun-28 10:51:53.130 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Jun-28 10:51:54.730 [main] DEBUG nextflow.config.ConfigBuilder - Found config base: /gpfs3/well/ckb/users/aey472/program_files/eager/nextflow.config
+Jun-28 10:51:54.731 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /gpfs3/well/ckb/users/aey472/program_files/eager/nextflow.config
+Jun-28 10:51:54.740 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Jun-28 10:51:55.903 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=1 from script declararion
+Jun-28 10:51:55.906 [main] DEBUG nextflow.cli.Launcher - Operation aborted
+nextflow.exception.AbortOperationException: Nextflow DSL1 is no longer supported — Update your script to DSL2, or use Nextflow 22.10.x or earlier
+	at nextflow.NextflowMeta.enableDsl(NextflowMeta.groovy:152)
+	at nextflow.cli.CmdRun.launchInfo(CmdRun.groovy:392)
+	at nextflow.cli.CmdRun.run(CmdRun.groovy:324)
+	at nextflow.cli.Launcher.run(Launcher.groovy:494)
+	at nextflow.cli.Launcher.main(Launcher.groovy:653)

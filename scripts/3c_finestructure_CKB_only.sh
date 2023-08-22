@@ -3,9 +3,9 @@
 #SBATCH -J pcm_greedyFSsubset
 #SBATCH -o pcm_greedyFSsubset_%A_%a.out
 #SBATCH -e pcm_greedyFSsubset_%A_%a.err
-#SBATCH -p short
-#SBATCH --array 1-7
-#SBATCH -c 8
+#SBATCH -p long
+#SBATCH --array 1
+#SBATCH -c 36
 
 source directories.config 
 
@@ -46,18 +46,25 @@ source ~/.bashrc
 # -o ${painting_output}/fs_greedy_subset/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.${stem}.chunklengths.out.gz
 
 
-chunkcounts=${painting_output}/fs_greedy_subset/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.${stem}.chunkcounts.out
-stem_fs=fs_greedy_subset/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.${stem}
+#chunkcounts=${painting_output}/fs_greedy_subset/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.${stem}.chunkcounts.out
+#stem_fs=fs_greedy_subset/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.${stem}
+#programs=/well/ckb/users/aey472/projects/ckb_popgen/programs
+#$fs_out=/well/ckb/users/aey472/projects/ckb_popgen/data/finestructure_output
 
-programs=/well/ckb/users/aey472/projects/ckb_popgen/programs
-fs_out=/well/ckb/users/aey472/projects/ckb_popgen/data/finestructure_output
+#$bash ${programs}/finestructuregreedy.sh -a "-T 1" -R ${chunkcounts} ${fs_out}/${stem_fs}.xml
 
-bash ${programs}/finestructuregreedy.sh -a "-T 1" -R ${chunkcounts} ${fs_out}/${stem_fs}.xml
+######## try cluster entire cohort ########
+#££counts=${painting_output}/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.all_CKB_external.chunkcounts.out
+
+#bash ${programs}/finestructuregreedy.sh \
+#	-a "-T 1" \
+#	-R ${counts} \
+#	${finestructure_output}/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.all_CKB_external.xml
 
 
 
-
-
-
-
-
+counts=/well/ckb/users/aey472/projects/ckb_popgen/data/painting_output/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.CKB_only_relfree.chunkcounts.out
+bash ${programs}/finestructuregreedy.sh \
+  -a "-T 1" \
+  -R ${counts} \
+  ${finestructure_output}/sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.CKB_only_relfree.chunkcounts.out.xml 

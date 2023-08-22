@@ -1,0 +1,10 @@
+EastAsian_166ancientgenomes_public
+Lao_individuals
+SEA2
+IndiaHO_dataforrelease
+QinStoneking2015
+SkoglundEtAl2016_Pacific_FullyPublic
+EastAsian_HO
+Kutanan_Liu_2021_Thai_Lao
+Viet_Liu_2020
+v54.1.p1_HO_public

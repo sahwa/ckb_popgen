@@ -27,4 +27,15 @@ plink2 \
 	--extract /well/ckb/users/aey472/projects/ckb_popgen/data/PCS/m4_b38_qced.pruned.prune.in \
 	--pca 100 \
 	--out /well/ckb/users/aey472/projects/ckb_popgen/data/PCS/m4_b38_qced	\
-	--threads 24	
+	--threads 24
+
+
+#### Fst estimation ####
+
+pruned=/well/ckb/shared/filesystem/genetic_data/CKB_genotype/b38/m4_b38_qced.pruned
+
+
+plink \
+	--bfile ${pruned} \	
+	--within /well/ckb/users/aey472/projects/ckb_popgen/data/Fst_TVD/within_file_5000_PC_midpoints.txt \
+	--fst 

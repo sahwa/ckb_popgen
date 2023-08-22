@@ -56,7 +56,7 @@ for (i in chrs) {
 
 	current[, RECIPIENT := NULL]
 
-	if (i == 1) {
+	if (i == chrs[1]) {
 		total = as.data.table(matrix(0, nrow=nrow(current), ncol=ncol(current)))
 		colnames(total) = colnames(current)
 	}
