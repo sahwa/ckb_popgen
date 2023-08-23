@@ -5,11 +5,8 @@ using namespace Rcpp;
 double TVD_cpp(Rcpp::NumericMatrix x) {
 	
 	int x_nrow = x.nrow();
-
 	Rcpp::NumericVector res(x_nrow * x_nrow, 0.0);
-
-	Rcpp::NumericVector diff;	
-	
+	Rcpp::NumericVector diff;		
 	int counter = -1;
 
 	for (int i = 0; i<x_nrow; i++) {
@@ -22,9 +19,7 @@ double TVD_cpp(Rcpp::NumericMatrix x) {
 		}
 	}
 
-
 	double TVD = Rcpp::mean(res);
-
 	return TVD;
 }
 
@@ -45,6 +40,5 @@ double TVD_cpp_gpt(Rcpp::NumericMatrix x) {
   }
 
   double TVD = Rcpp::mean(res);
-
   return TVD;
 }
