@@ -4,8 +4,8 @@
 #SBATCH -o phaseHO_%A_%a.out
 #SBATCH -e phaseHO_%A_%a.err
 #SBATCH -p short
-#SBATCH -c 32
-#SBATCH -a 1-22
+#SBATCH -c 16
+#SBATCH -a 6,7,14-22
 
 source directories.config
 source ~/.bashrc
@@ -23,18 +23,44 @@ merge_dir=/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/m
 #sed 's/|/\//g' | \
 #bcftools view -Oz > ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.vcf.gz
 
-module purge all && module load BCFtools/1.17-GCC-12.2.0
-zcat ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.vcf.gz | bgzip -c > ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.bgz.vcf.gz
-bcftools index -f ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.bgz.vcf.gz
+beagle=/well/ckb/users/aey472/projects/ckb_popgen/programs/beagle.22Jul22.46e.jar
 
-gmap=/well/ckb/users/aey472/program_files/shapeit4/maps/chr${chr}.b38.gmap.gz
+java -Xmx24g -jar ${beagle} \
+	gt=${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.vcf.gz \
+	chrom=${chr} \
+	out=${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased \
+	nthreads=64 \
+	map=${genmaps}/plink.chr${chr}.GRCh38.map
 
-module purge all && module load SHAPEIT4/4.2.2-foss-2020b
-shapeit4.2 \
-	--input ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.bgz.vcf.gz \
-	--region ${chr} \
-	--map ${gmap} \
-	--thread 32 \
-	--out ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased
+vcf2gprobs=/well/ckb/users/aey472/projects/ckb_popgen/programs/vcf2gprobs.jar
+gprobsmetrics=/well/ckb/users/aey472/projects/ckb_popgen/programs/gprobsmetrics.jar
+vcfin=${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.vcf.gz
 
 
+#bcftools view ${vcfin} | java -jar ${vcf2gprobs} | java -jar ${gprobsmetrics} > test
+
+
+
+
+
+
+
+
+
+
+
+#£module purge all && module load BCFtools/1.17-GCC-12.2.0
+#zcat ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.vcf.gz | bgzip -c > ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.bgz.vcf.gz
+#bcftools index -f ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.bgz.vcf.gz
+
+#gmap=/well/ckb/users/aey472/program_files/shapeit4/maps/chr${chr}.b38.gmap.gz
+
+#module purge all && module load SHAPEIT4/4.2.2-foss-2020b
+#shapeit4.2 \
+#	--input ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.bgz.vcf.gz \
+#	--region ${chr} \
+#	--map ${gmap} \
+#	--thread 32 \
+#	--out ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased
+
+#
