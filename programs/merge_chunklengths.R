@@ -77,4 +77,18 @@ if (opt$pca == "TRUE") {
 	fwrite(pca, outname) 
 }
 
+chunk_size = 1000
+num_chunks = ceiling(nrow(total) / chunk_size)
+
+for (i in 1:num_chunks) {
+  start_row = (i - 1) * chunk_size + 1
+  end_row = min(i * chunk_size, nrow(total))
+  
+  # Write the chunk to a file
+  output_file = sprintf("output_chunks/output_chunk_%02d.csv", i)
+  fwrite(total[start_row:end_row], file = output_file, append = FALSE, verbose=T)
+  
+  cat("Chunk", i, "written to", output_file, "\n")
+}
+
 fwrite(total, opt$output, col.names=T, sep=" ", verbose=T, quote=F)

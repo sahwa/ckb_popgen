@@ -76,8 +76,11 @@ chr=${SLURM_ARRAY_TASK_ID}
 #chr=$(echo $line | cut -d' ' -f3)
 #file=$(echo $line | cut -d' ' -f2)
 
+module purge all && module load BCFtools/1.17-GCC-12.2.0
 #mv ../data/HumanOriginsExternal/merge/chr${chr}.cdefg.WBKG.GRCh38.HumanOrigins.dose.vcf.gz ../data/HumanOriginsExternal/merge/chr${chr}.cdefg.WBKG.GRCh38.HumanOrigins.dose.bgz.vcf.gz
 #bcftools view -Oz ../data/HumanOriginsExternal/merge/chr${chr}.cdefg.WBKG.GRCh38.HumanOrigins.dose.bgz.vcf.gz > ../data/HumanOriginsExternal/merge/chr${chr}.cdefg.WBKG.GRCh38.HumanOrigins.dose.vcf.gz 
+bcftools query -f '%CHROM \t %POS \t %REF \t %ALT \t %MAF \t %R2\n' ../data/HumanOriginsExternal/merge/chr${chr}.cdefg.WBKG.GRCh38.HumanOrigins.dose.vcf.gz > ../data/HumanOriginsExternal/merge/chr${chr}.cdefg.WBKG.GRCh38.HumanOrigins.dose.chr_pos_ref_alt_maf_rsq.txt
+
 
 #conform=${programs}/conform-gt.24May16.cee.jar
 ## important - need to make sure the alleles are on the same strand with CKB or else we can't merge ###
@@ -94,62 +97,61 @@ chr=${SLURM_ARRAY_TASK_ID}
 #bcftools view ${file}/${bname}.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.vcf.gz -Ob > ${file}/${bname}.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz
 #bcftools index -f ${file}/${bname}.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz
 
-module purge all && module load BCFtools/1.17-GCC-12.2.0
+#module purge all && module load BCFtools/1.17-GCC-12.2.0
 
-bcftools merge \
-	--force-samples \
-	-Ob \
-	/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/EastAsianAncientWang/EastAsian_166ancientgenomes_public.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz \
-	/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/Lao_individuals_2023/Lao_individuals.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz \
-	/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/LipsonModern2018/SEA2.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz \
-	/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/Nakatskua_FilteredData/IndiaHO_dataforrelease.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz \
-	/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/QinStoneking/QinStoneking2015.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz \
-	/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/SkoglundPacific/SkoglundEtAl2016_Pacific_FullyPublic.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz \
-	/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/WangModern/EastAsian_HO.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz \
-	/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/Kutanan_Liu_2021_Thai_Lao/Kutanan_Liu_2021_Thai_Lao.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz \
-	/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/Viet_Liu_2020/Viet_Liu_2020.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz \
-	${oneKG}/1kGP_high_coverage_Illumina.AllChr.filtered.SNV_INDEL_SV_phased_panel.HumanOrigins.chr${chr}.conformed.bgz.vcf.gz \
-	/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/allen/v54.1.p1_HO_public.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz -Oz > /well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/merge/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_chr${chr}.vcf.gz 
+#bcftools merge \
+#	--force-samples \
+#	-Ob \
+#	/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/EastAsianAncientWang/EastAsian_166ancientgenomes_public.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz \
+#	/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/Lao_individuals_2023/Lao_individuals.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz \
+#	/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/LipsonModern2018/SEA2.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz \
+#	/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/Nakatskua_FilteredData/IndiaHO_dataforrelease.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz \
+#	/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/QinStoneking/QinStoneking2015.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz \
+#	/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/SkoglundPacific/SkoglundEtAl2016_Pacific_FullyPublic.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz \
+#	/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/WangModern/EastAsian_HO.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz \
+#	/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/Kutanan_Liu_2021_Thai_Lao/Kutanan_Liu_2021_Thai_Lao.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz \
+#	/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/Viet_Liu_2020/Viet_Liu_2020.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz \
+#	${oneKG}/1kGP_high_coverage_Illumina.AllChr.filtered.SNV_INDEL_SV_phased_panel.HumanOrigins.chr${chr}.conformed.bgz.vcf.gz \
+#	/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/allen/v54.1.p1_HO_public.lifted.rename_chrs.actg.rename_chrs.rmdup.chr${chr}.conformed.bgz.vcf.gz -Oz > /well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/merge/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_chr${chr}.vcf.gz 
 
 #merge_dir=/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/merge/
 
 #bcftools concat `ls ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_chr{1..22}.vcf.gz` -Oz > ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.vcf.gz
 
-plink2 \
-	--vcf ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.vcf.gz \
-	--make-pgen \
-	--out ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr
+#plink2 \
+#	--vcf ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.vcf.gz \
+#	--make-pgen \
+#	--out ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr
+
+#plink2 \
+#	--pfile ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr \
+#	--geno 0.1 \
+#	--mind 0.3 \
+#	--make-pgen \
+#	--out ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered
+
+#plink2 \
+#	--pfile ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered \
+#	--king-cutoff 0.35 \
+#	--make-pgen \
+#	--out ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates
+
+#plink2 \
+#	--pfile ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates \
+#	--maf 0.01 \
+#	--indep-pairwise 50 5 0.2 \
+#	--out ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates
+
+#plink2 \
+#	--pfile ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates \
+#	--extract ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.prune.in \
+#	--pca
 
 
-plink2 \
-	--pfile ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr \
-	--geno 0.1 \
-	--mind 0.3 \
-	--make-pgen \
-	--out ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered
-
-plink2 \
-	--pfile ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered \
-	--king-cutoff 0.35 \
-	--make-pgen \
-	--out ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates
-
-plink2 \
-	--pfile ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates \
-	--maf 0.01 \
-	--indep-pairwise 50 5 0.2 \
-	--out ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates
-
-plink2 \
-	--pfile ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates \
-	--extract ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.prune.in \
-	--pca
-
-
-for (( i = 1; i <= 22; i++ )); do
+#for (( i = 1; i <= 22; i++ )); do
  #plink2 --pfile ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates --chr chr${i} --export vcf bgz --out ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr} 
-	bcftools index ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${i}.vcf.gz
-done
+#	bcftools index ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${i}.vcf.gz
+#done
 
 
 
