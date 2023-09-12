@@ -4,8 +4,8 @@
 #SBATCH -o phaseHO_%A_%a.out
 #SBATCH -e phaseHO_%A_%a.err
 #SBATCH -p short
-#SBATCH -c 12
-#SBATCH -a 1-22
+#SBATCH -c 32
+#SBATCH -a 1-22%7
 
 source directories.config
 source ~/.bashrc
@@ -31,13 +31,13 @@ merge_dir=/well/ckb/users/aey472/projects/ckb_popgen/data/HumanOriginsExternal/m
 
 beagle=/well/ckb/users/aey472/projects/ckb_popgen/programs/beagle.22Jul22.46e.jar
 
-java -Xmx32g -jar ${beagle} \
-	gt=${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.vcf.gz \
-	chrom=chr${chr} \
-	out=${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased \
-	nthreads=24 \
-	gp=true \
-	map=${genmaps}/plink.chr${chr}.GRCh38.map
+#java -Xmx32g -jar ${beagle} \
+#	gt=${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.vcf.gz \
+#	chrom=chr${chr} \
+#	out=${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased \
+#	nthreads=24 \
+#	gp=true \
+#	map=${genmaps}/plink.chr${chr}.GRCh38.map
 
 #module purge all && module load BCFtools/1.17-GCC-12.2.0
 #bcftools view -Ob ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.vcf.gz > ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.bgz.vcf.gz
@@ -53,16 +53,14 @@ java -Xmx32g -jar ${beagle} \
 
 ###### get missing #######
 
-#module purge all && module load PLINK/2.00a3.1-GCC-11.2.0
+#£module purge all && module load PLINK/2.00a3.1-GCC-11.2.0
 #plink2 \
-#	--bcf ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.bgz.vcf.gz \
+#	--vcf ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.vcf.gz \
 #	--missing \
-#	--out ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB
-
-
+#	--freq	\
+#	--out ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB 
 
 #module purge all && module load BCFtools/1.17-GCC-12.2.0
-
 #tabix -f ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.vcf.gz
 #bcftools reheader -s ${merge_dir}/newnames_samples.txt ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.vcf.gz > ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.newnames.bgz.vcf.gz
 
@@ -70,30 +68,32 @@ java -Xmx32g -jar ${beagle} \
 
 #bcftools view --force-samples -S ${merge_dir}/keep_painting_samples.txt -Ob ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.newnames.bgz.vcf.gz > ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.newnames.relfree.local.moderns.bgz.vcf.gz
 
-#invcf=${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.newnames.relfree.local.moderns.bgz.vcf.gz
-#outfile=${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.newnames.relfree.local.moderns.gprobsmetrics.txt
-
-#bcftools view ${invcf} | java -jar ${programs}/vcf2gprobs.jar | java -jar ${programs}/gprobsmetrics.jar > ${outfile}
-
-#bcftools view -G ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.newnames.relfree.local.moderns.bgz.vcf.gz | grep -v '##' | cut -f8 > ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.newnames.relfree.local.moderns.maf.txt 
-
 #module purge all && module load PLINK/2.00a3.1-GCC-11.2.0
 #plink2 \
 #	--bcf ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.newnames.relfree.local.moderns.bgz.vcf.gz \
-#	--maf 0.045 \
+#	--maf 0.01 \
+#	--geno 0.001 \
 #	--export bgz vcf \
 #	--out ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.newnames.relfree.local.moderns.maf_filter
 
-#conda activate pbwt 
-#pbwt \
-#	-readVcfGT ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.newnames.relfree.local.moderns.maf_filter.vcf.gz \
-#	-check \
-#	-stats \
-#	-selectSamples ckb_keep_samples.txt \
-#	-paint ${painting_output}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.newnames.relfree.local.moderns.maf_filter
+## make final list of samples to keep (remove outliers and PCA dupes etc) ##
+#cat relfree_local.txt ext_painting_samples_keep.txt > ext_painting_samples_keep.relfree_local.txt
+#bcftools reheader -s vcf_newnames_sep11.txt ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.newnames.relfree.local.moderns.maf_filter.vcf.gz > ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.newnames.relfree.local.moderns.maf_filter.final_names.vcf.gz
 
-#rm ${painting_output}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.newnames.relfree.local.moderns.maf_filter.regionsquaredchunkcounts.out
-#rm ${painting_output}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.newnames.relfree.local.moderns.maf_filter.regionchunkcounts.out
+conda activate pbwt
+pbwt \
+	-readVcfGT ${merge_dir}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.newnames.relfree.local.moderns.maf_filter.final_names.vcf.gz \
+	-selectSamples ext_painting_samples_keep.relfree_local.txt \
+	-check \
+	-stats \
+	-paint ${painting_output}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.newnames.relfree.local.moderns.maf_filter.final_names
 
-#gzip -f ${painting_output}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.newnames.relfree.local.moderns.maf_filter.chunkcounts.out
-#gzip -f ${painting_output}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.newnames.relfree.local.moderns.maf_filter.chunklengths.out
+gzip -f ${painting_output}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.newnames.relfree.local.moderns.maf_filter.final_names.chunkcounts.out
+gzip -f ${painting_output}/WangAncient_Lao_Lipson_Nakatskua_QinSt_Skoglund_WangModern_Kutanan_Viet_1KG_AllChr.missing_filtered.remove_related_duplicates.chr${chr}.CKB.phased.newnames.relfree.local.moderns.maf_filter.final_names.chunklengths.out
+
+#Rscript ${programs}/merge_chunklengths.R \
+#  -n ${sample_names} \
+#  -p "sgdp_hgdp_1kGP_CKB.chr" \
+#  -a ".AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.all_CKB_external.chunklengths.out.gz" \
+#  -c "1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22" \
+#  -o "sgdp_hgdp_1kGP_CKB.AllChr.AllChr.CKB_snps.GT.no_duplicates.rmdup.conformed.phased.newnames.maf_filter.relfree.local.all_CKB_external.chunklengths.out.gz"
